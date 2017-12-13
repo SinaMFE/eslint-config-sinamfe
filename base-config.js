@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   parser: 'babel-eslint',
   env: {
     browser: true, // 浏览器全局变量(window, document...)
@@ -10,7 +11,14 @@ module.exports = {
     es6: true // ES6 API
   },
 
-  plugins: ['import', 'react'],
+  plugins: ['import', 'react', 'html'],
+  // 配置 vue 规则，去除 react 插件
+  overrides: [
+    {
+      files: '*.vue',
+      plugins: ['import', 'html']
+    }
+  ],
 
   globals: {
     SINA_NEWS: false // sina 全局变量，不允许被重写
@@ -77,6 +85,8 @@ module.exports = {
     'space-before-blocks': 'error', // 语句块之前加空格
     'spaced-comment': ['warn', 'always'], // 注释符与文本加一个空格
     'linebreak-style': ['error', 'unix'], // 换行风格
-    'react/prop-types': 'off' // 校验 props 类型 （https://facebook.github.io/react/docs/typechecking-with-proptypes.html）
+    'react/prop-types': 'off', // 校验 props 类型 （https://facebook.github.io/react/docs/typechecking-with-proptypes.html）
+    // allow debugger during development
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
 }
